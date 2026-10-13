@@ -2,6 +2,8 @@
 
 **Industrial Energy Forecasting, Digital Twin & Intelligent Operations Optimization**
 
+[![Project verification](https://github.com/Priynka-Roy/enertwin-industrial-energy-digital-twin/actions/workflows/ci.yml/badge.svg)](https://github.com/Priynka-Roy/enertwin-industrial-energy-digital-twin/actions/workflows/ci.yml)
+
 [Repository](https://github.com/Priynka-Roy/enertwin-industrial-energy-digital-twin) · [Open the local app](http://localhost:8502) · [Methodology](docs/METHODOLOGY.md) · [Computed results](docs/EXPERIMENT_RESULTS.md)
 
 Energy planners need credible forecasts and clear scheduling trade-offs. EnerTwin AI analyzes real steel-facility electricity, evaluates complete 24-hour forecasts, and allocates explicitly hypothetical flexible work under energy, availability and power constraints. It distinguishes observed data, forecasts and modeled costs throughout the application.

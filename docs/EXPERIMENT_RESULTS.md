@@ -70,3 +70,7 @@ Autocorrelation is 0.913 at one interval, 0.606 at one day and 0.677 at one week
 | 1.2 | Infeasible | Infeasible | Infeasible |
 
 **Interpretation:** with 20% larger background, its own 222.53 kW peak violates even the 220 kW limit; workload timing cannot fix a noncontrollable background. With 20% smaller background, all caps are feasible. **Limits:** deterministic forecast caps do not guarantee realized peaks under forecast error. This scenario diagnoses feasibility; it does not establish real equipment response or demand-charge savings. These results are in `artifacts/scenarios.json` and can be reproduced directly through `simulate_scenario`.
+
+## Variation across daily forecast origins
+
+Selected boosting daily MAE has median 10.408 kWh/interval, interquartile range 7.028–13.816, and observed range 1.669–28.180 across the 92 held-out days. This describes variability across dependent days; it is not an independent-sample confidence interval. These daily error records are retained in `artifacts/metrics.json`.

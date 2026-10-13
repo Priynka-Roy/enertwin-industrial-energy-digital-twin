@@ -11,7 +11,7 @@ python -m pip install -e '.[dev]'
 streamlit run streamlit_app.py --server.port 8502
 ```
 
-Committed lightweight data, model/evaluation artifacts and scenario outputs support startup without raw data or retraining. Relative resources resolve from project paths. Dependency versions are pinned in `requirements.txt`; the local tested runtime is Python 3.12.12; Python 3.11 is the declared minimum, not a separately tested runtime. Cache loading and repeated simulation inputs in the application.
+Committed lightweight data, model/evaluation artifacts and scenario outputs support startup without raw data or retraining. Relative resources resolve from project paths. Dependency versions are pinned in `requirements.txt`; the local tested runtime is Python 3.12.12; Python 3.11 is the declared minimum, and application/unit/integration CI passed on both Python 3.11 and 3.12. Full artifact reproduction was run locally on Python 3.12.12. Cache loading and repeated simulation inputs in the application.
 
 For later Streamlit Community Cloud deployment, choose public repository `Priynka-Roy/enertwin-industrial-energy-digital-twin`, branch `main`, entry point `streamlit_app.py`, and Python 3.12. Deploy with committed artifacts and no private paths or credentials. Account sign-in and platform terms are completed by the user when hosting begins. Verify every page and a reachable public URL before adding a live-demo badge.
 

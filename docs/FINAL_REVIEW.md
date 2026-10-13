@@ -18,6 +18,6 @@ The operations model compares two feasible schedules under the same assumptions.
 
 ## Delivery checks
 
-Use `python -m pytest -q` and `python -m ruff check .` to reproduce the automated checks. GitHub Actions runs dependency installation, lint and deterministic tests without raw downloads. The complete local suite passed **59 tests**, and Ruff passed, on Python **3.12.12**. CI status is verified separately after publication; local passing checks do not imply a completed remote CI run. Application screenshots document the locally running interface, not public hosting.
+Use `python -m pytest -q` and `python -m ruff check .` to reproduce the automated checks. GitHub Actions runs dependency installation, lint and deterministic tests without raw downloads. The complete local suite passed **59 tests**, and Ruff passed, on Python **3.12.12**. [GitHub Actions run 38372415422](https://github.com/Priynka-Roy/enertwin-industrial-energy-digital-twin/actions/runs/38372415422) passed on Python 3.11 and 3.12: Ruff passed, with 58 tests passing and one raw-source audit intentionally skipped on each runner. CI does not download raw telemetry; local reproduction includes that additional audit. Application screenshots document the locally running interface, not public hosting.
 
 Source attribution is retained in README, data card and the application. Raw data and environment files are ignored, no credential is required for startup, and publication targets a separate public EnerTwin repository without changing IndustrialGuard AI.
