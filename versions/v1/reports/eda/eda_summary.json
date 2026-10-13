@@ -1,0 +1,222 @@
+{
+  "rows": 35040,
+  "interval_start_min": "2018-01-01 00:00:00",
+  "interval_start_max": "2018-12-31 23:45:00",
+  "total_energy_kwh": 959636.7099999998,
+  "peak_interval_average_kw": 628.72,
+  "energy_kwh_descriptive": {
+    "count": 35040.0,
+    "mean": 27.386892408675795,
+    "std": 33.44437970801513,
+    "min": 0.0,
+    "25%": 3.2,
+    "50%": 4.57,
+    "75%": 51.2375,
+    "95%": 99.04,
+    "99%": 122.70830000000002,
+    "max": 157.18
+  },
+  "observational_load_categories": {
+    "Light_Load": {
+      "count": 18072,
+      "total_kwh": 155892.81,
+      "mean_kwh": 8.626206839309429,
+      "median_kwh": 3.31,
+      "q25_kwh": 2.95,
+      "q75_kwh": 4.03
+    },
+    "Maximum_Load": {
+      "count": 7272,
+      "total_kwh": 430977.36,
+      "mean_kwh": 59.26531353135314,
+      "median_kwh": 56.63,
+      "q25_kwh": 42.0025,
+      "q75_kwh": 75.31
+    },
+    "Medium_Load": {
+      "count": 9696,
+      "total_kwh": 372766.54,
+      "mean_kwh": 38.44539397689769,
+      "median_kwh": 34.435,
+      "q25_kwh": 4.42,
+      "q75_kwh": 61.7
+    }
+  },
+  "monthly": {
+    "2018-01": {
+      "count": 2976,
+      "total_kwh": 126238.29000000001,
+      "mean_kwh": 42.41878024193549,
+      "peak_interval_average_kw": 612.56
+    },
+    "2018-02": {
+      "count": 2688,
+      "total_kwh": 91497.34,
+      "mean_kwh": 34.03918898809523,
+      "peak_interval_average_kw": 582.04
+    },
+    "2018-03": {
+      "count": 2976,
+      "total_kwh": 80230.41,
+      "mean_kwh": 26.959143145161292,
+      "peak_interval_average_kw": 605.24
+    },
+    "2018-04": {
+      "count": 2880,
+      "total_kwh": 78769.79999999999,
+      "mean_kwh": 27.350624999999997,
+      "peak_interval_average_kw": 556.12
+    },
+    "2018-05": {
+      "count": 2976,
+      "total_kwh": 79059.28,
+      "mean_kwh": 26.565618279569893,
+      "peak_interval_average_kw": 560.16
+    },
+    "2018-06": {
+      "count": 2880,
+      "total_kwh": 65404.64,
+      "mean_kwh": 22.709944444444446,
+      "peak_interval_average_kw": 535.4
+    },
+    "2018-07": {
+      "count": 2976,
+      "total_kwh": 81674.41,
+      "mean_kwh": 27.444358198924732,
+      "peak_interval_average_kw": 486.72
+    },
+    "2018-08": {
+      "count": 2976,
+      "total_kwh": 68559.43,
+      "mean_kwh": 23.037442876344084,
+      "peak_interval_average_kw": 534.8
+    },
+    "2018-09": {
+      "count": 2880,
+      "total_kwh": 57883.07,
+      "mean_kwh": 20.098288194444443,
+      "peak_interval_average_kw": 510.48
+    },
+    "2018-10": {
+      "count": 2976,
+      "total_kwh": 84665.65,
+      "mean_kwh": 28.449479166666666,
+      "peak_interval_average_kw": 557.72
+    },
+    "2018-11": {
+      "count": 2880,
+      "total_kwh": 86217.61000000002,
+      "mean_kwh": 29.936670138888893,
+      "peak_interval_average_kw": 628.72
+    },
+    "2018-12": {
+      "count": 2976,
+      "total_kwh": 59436.78,
+      "mean_kwh": 19.97203629032258,
+      "peak_interval_average_kw": 596.72
+    }
+  },
+  "reactive_and_power_factor_associations": {
+    "Lagging_Current_Reactive.Power_kVarh": {
+      "pearson_r_with_energy": 0.8961499010002222,
+      "mean": 13.035383561643837,
+      "median": 5.0,
+      "q25": 2.3,
+      "q75": 22.64,
+      "min": 0.0,
+      "max": 96.91
+    },
+    "Leading_Current_Reactive_Power_kVarh": {
+      "pearson_r_with_energy": -0.32492178394544663,
+      "mean": 3.8709486301369864,
+      "median": 0.0,
+      "q25": 0.0,
+      "q75": 2.09,
+      "min": 0.0,
+      "max": 27.76
+    },
+    "Lagging_Current_Power_Factor": {
+      "pearson_r_with_energy": 0.3859604614141434,
+      "mean": 80.5780562214612,
+      "median": 87.96,
+      "q25": 63.32,
+      "q75": 99.0225,
+      "min": 0.0,
+      "max": 100.0
+    },
+    "Leading_Current_Power_Factor": {
+      "pearson_r_with_energy": 0.3535657085478749,
+      "mean": 84.36786986301371,
+      "median": 100.0,
+      "q25": 99.7,
+      "q75": 100.0,
+      "min": 0.0,
+      "max": 100.0
+    }
+  },
+  "upper_tukey_fence_kwh": 123.29374999999999,
+  "readings_above_upper_fence": 328,
+  "highest_readings": [
+    {
+      "interval_start": "2018-11-22 09:30:00",
+      "energy_kwh": 157.18,
+      "interval_average_kw": 628.72,
+      "observed_load_category": "Medium_Load"
+    },
+    {
+      "interval_start": "2018-01-15 13:30:00",
+      "energy_kwh": 153.14,
+      "interval_average_kw": 612.56,
+      "observed_load_category": "Medium_Load"
+    },
+    {
+      "interval_start": "2018-11-27 10:45:00",
+      "energy_kwh": 151.67,
+      "interval_average_kw": 606.68,
+      "observed_load_category": "Maximum_Load"
+    },
+    {
+      "interval_start": "2018-03-23 09:00:00",
+      "energy_kwh": 151.31,
+      "interval_average_kw": 605.24,
+      "observed_load_category": "Medium_Load"
+    },
+    {
+      "interval_start": "2018-01-18 17:15:00",
+      "energy_kwh": 149.65,
+      "interval_average_kw": 598.6,
+      "observed_load_category": "Maximum_Load"
+    },
+    {
+      "interval_start": "2018-12-19 14:00:00",
+      "energy_kwh": 149.18,
+      "interval_average_kw": 596.72,
+      "observed_load_category": "Medium_Load"
+    },
+    {
+      "interval_start": "2018-01-02 16:30:00",
+      "energy_kwh": 147.46,
+      "interval_average_kw": 589.84,
+      "observed_load_category": "Medium_Load"
+    },
+    {
+      "interval_start": "2018-03-05 15:45:00",
+      "energy_kwh": 146.88,
+      "interval_average_kw": 587.52,
+      "observed_load_category": "Maximum_Load"
+    },
+    {
+      "interval_start": "2018-01-18 11:45:00",
+      "energy_kwh": 146.48,
+      "interval_average_kw": 585.92,
+      "observed_load_category": "Maximum_Load"
+    },
+    {
+      "interval_start": "2018-01-05 15:45:00",
+      "energy_kwh": 146.34,
+      "interval_average_kw": 585.36,
+      "observed_load_category": "Medium_Load"
+    }
+  ],
+  "interpretation": "Historical descriptive associations only; no inferred causality or verified billing peak."
+}

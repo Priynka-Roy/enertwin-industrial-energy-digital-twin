@@ -1,0 +1,53 @@
+{
+  "training": "2018-01-08 through 2018-03-31",
+  "validation": "2018-04-01 through 2018-06-30",
+  "last_selection_target": "2018-07-01 00:00:00",
+  "refit": "2018-01-08 through 2018-06-30",
+  "parameters": {
+    "ridge": {
+      "alpha": 100.0
+    },
+    "hist_gradient_boosting": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 10.0
+    }
+  },
+  "trials": {
+    "ridge": [
+      {
+        "parameters": {
+          "alpha": 10.0
+        },
+        "MAE": 13.366506726883166
+      },
+      {
+        "parameters": {
+          "alpha": 100.0
+        },
+        "MAE": 13.366084956875087
+      },
+      {
+        "parameters": {
+          "alpha": 1000.0
+        },
+        "MAE": 13.667354087491637
+      }
+    ],
+    "hist_gradient_boosting": [
+      {
+        "parameters": {
+          "max_leaf_nodes": 15,
+          "l2_regularization": 10.0
+        },
+        "MAE": 10.827088760785552
+      },
+      {
+        "parameters": {
+          "max_leaf_nodes": 31,
+          "l2_regularization": 20.0
+        },
+        "MAE": 10.951784394755858
+      }
+    ]
+  }
+}

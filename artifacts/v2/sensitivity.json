@@ -1,0 +1,142 @@
+[
+  {
+    "dimension": "peak_limit_kw",
+    "value": 250,
+    "feasible": false,
+    "flexible_cost_eur": null,
+    "max_scenario_peak_kw": null
+  },
+  {
+    "dimension": "peak_limit_kw",
+    "value": 350,
+    "feasible": false,
+    "flexible_cost_eur": null,
+    "max_scenario_peak_kw": null
+  },
+  {
+    "dimension": "peak_limit_kw",
+    "value": 500,
+    "feasible": false,
+    "flexible_cost_eur": null,
+    "max_scenario_peak_kw": null
+  },
+  {
+    "dimension": "peak_limit_kw",
+    "value": 700,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "uncertainty_strength",
+    "value": 0,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 91.19450806249961
+  },
+  {
+    "dimension": "uncertainty_strength",
+    "value": 0.5,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 321.62997745574125
+  },
+  {
+    "dimension": "uncertainty_strength",
+    "value": 1,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "uncertainty_strength",
+    "value": 1.5,
+    "feasible": false,
+    "flexible_cost_eur": null,
+    "max_scenario_peak_kw": null
+  },
+  {
+    "dimension": "workload_multiplier",
+    "value": 0.5,
+    "feasible": true,
+    "flexible_cost_eur": 8.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "workload_multiplier",
+    "value": 1,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "workload_multiplier",
+    "value": 1.5,
+    "feasible": true,
+    "flexible_cost_eur": 26.799999999999997,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "capacity_kw",
+    "value": 40,
+    "feasible": true,
+    "flexible_cost_eur": 21.6,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "capacity_kw",
+    "value": 80,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "capacity_kw",
+    "value": 120,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "offpeak_price",
+    "value": 0.04,
+    "feasible": true,
+    "flexible_cost_eur": 8.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "offpeak_price",
+    "value": 0.08,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "offpeak_price",
+    "value": 0.16,
+    "feasible": true,
+    "flexible_cost_eur": 32.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "window_start",
+    "value": 0,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "window_start",
+    "value": 32,
+    "feasible": true,
+    "flexible_cost_eur": 16.0,
+    "max_scenario_peak_kw": 578.0077609861634
+  },
+  {
+    "dimension": "window_start",
+    "value": 88,
+    "feasible": false,
+    "flexible_cost_eur": null,
+    "max_scenario_peak_kw": null
+  }
+]

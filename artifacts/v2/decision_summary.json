@@ -1,0 +1,158 @@
+[
+  {
+    "partition": "development",
+    "peak_limit_kw": 350.0,
+    "origins": 30,
+    "common_feasible_origins": 0,
+    "policies": {
+      "deterministic": {
+        "planning_feasible_origins": 29,
+        "own_dispatched_violation_days": 10,
+        "own_dispatched_violation_intervals": 126,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 0.0027777875002357177
+      },
+      "robust": {
+        "planning_feasible_origins": 0,
+        "own_dispatched_violation_days": null,
+        "own_dispatched_violation_intervals": null,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 3.723460104083642e-05
+      }
+    }
+  },
+  {
+    "partition": "development",
+    "peak_limit_kw": 500.0,
+    "origins": 30,
+    "common_feasible_origins": 0,
+    "policies": {
+      "deterministic": {
+        "planning_feasible_origins": 30,
+        "own_dispatched_violation_days": 3,
+        "own_dispatched_violation_intervals": 4,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 0.002797352699174856
+      },
+      "robust": {
+        "planning_feasible_origins": 0,
+        "own_dispatched_violation_days": null,
+        "own_dispatched_violation_intervals": null,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 3.6988965681909274e-05
+      }
+    }
+  },
+  {
+    "partition": "development",
+    "peak_limit_kw": 700.0,
+    "origins": 30,
+    "common_feasible_origins": 9,
+    "policies": {
+      "deterministic": {
+        "planning_feasible_origins": 30,
+        "own_dispatched_violation_days": 0,
+        "own_dispatched_violation_intervals": 0,
+        "paired_violation_days": 0,
+        "paired_mean_realized_cost_eur": 147.17524444444447,
+        "paired_incremental_violation_intervals": 0,
+        "mean_planning_seconds": 0.002799662533410204
+      },
+      "robust": {
+        "planning_feasible_origins": 9,
+        "own_dispatched_violation_days": 0,
+        "own_dispatched_violation_intervals": 0,
+        "paired_violation_days": 0,
+        "paired_mean_realized_cost_eur": 147.17524444444447,
+        "paired_incremental_violation_intervals": 0,
+        "mean_planning_seconds": 0.0009648250323759082
+      }
+    }
+  },
+  {
+    "partition": "test",
+    "peak_limit_kw": 350.0,
+    "origins": 92,
+    "common_feasible_origins": 0,
+    "policies": {
+      "deterministic": {
+        "planning_feasible_origins": 78,
+        "own_dispatched_violation_days": 36,
+        "own_dispatched_violation_intervals": 408,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 0.002413588337177593
+      },
+      "robust": {
+        "planning_feasible_origins": 0,
+        "own_dispatched_violation_days": null,
+        "own_dispatched_violation_intervals": null,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 3.6835184563761174e-05
+      }
+    }
+  },
+  {
+    "partition": "test",
+    "peak_limit_kw": 500.0,
+    "origins": 92,
+    "common_feasible_origins": 0,
+    "policies": {
+      "deterministic": {
+        "planning_feasible_origins": 92,
+        "own_dispatched_violation_days": 19,
+        "own_dispatched_violation_intervals": 52,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 0.002783040347624236
+      },
+      "robust": {
+        "planning_feasible_origins": 0,
+        "own_dispatched_violation_days": null,
+        "own_dispatched_violation_intervals": null,
+        "paired_violation_days": null,
+        "paired_mean_realized_cost_eur": null,
+        "paired_incremental_violation_intervals": null,
+        "mean_planning_seconds": 3.6552967566936076e-05
+      }
+    }
+  },
+  {
+    "partition": "test",
+    "peak_limit_kw": 700.0,
+    "origins": 92,
+    "common_feasible_origins": 18,
+    "policies": {
+      "deterministic": {
+        "planning_feasible_origins": 92,
+        "own_dispatched_violation_days": 0,
+        "own_dispatched_violation_intervals": 0,
+        "paired_violation_days": 0,
+        "paired_mean_realized_cost_eur": 214.42042222222224,
+        "paired_incremental_violation_intervals": 0,
+        "mean_planning_seconds": 0.0027724668923284576
+      },
+      "robust": {
+        "planning_feasible_origins": 18,
+        "own_dispatched_violation_days": 0,
+        "own_dispatched_violation_intervals": 0,
+        "paired_violation_days": 0,
+        "paired_mean_realized_cost_eur": 214.42042222222224,
+        "paired_incremental_violation_intervals": 0,
+        "mean_planning_seconds": 0.0006370959892355249
+      }
+    }
+  }
+]

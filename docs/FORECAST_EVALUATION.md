@@ -13,3 +13,13 @@ Horizon-specific bands use September absolute forecast errors, finite-sample cor
 Thirty calibration days, serial dependence and potential calendar drift limit calibration. No exact distribution-free guarantee or externally validated reliability is claimed. Width is average upper minus lower bound in kWh per interval. Coverage is measured on the untouched final test after calibration. Saving all forecasts, timestamps and residuals permits independent reproduction.
 
 See [computed results](EXPERIMENT_RESULTS.md) for actual comparison tables.
+
+## Version 2 evaluation boundary and interval diagnostics
+
+The original test results above describe V1's initial experiment. Those dates have now been inspected. Every V2 October–December comparison is therefore retrospective, and the unchanged point forecasts reproduce the historical benchmark.
+
+V2 investigates original horizon-wise bands, fixed six-hour pooled bands and rolling six-hour pooled bands using a January–June diagnostic fit, July–August residual calibration and September development evaluation. The recorded rule selects a method using development coverage/width; inspected October–December outcomes do not enter selection. The final point model still uses the preserved January–August fit.
+
+Each pooled-bin calibration observation is a complete day's maximum absolute error within 24 adjacent horizons, rather than 24 supposedly independent interval errors. The rolling method uses up to 60 completed earlier days and requires at least 20. Nominal 80%/90% refer to the six-hour score construction. Measure pointwise, six-hour simultaneous and full-day coverage separately, including width, high-demand, horizon, calendar, bias and day-to-day width-stability diagnostics. Finite-sample ranks do not remove serial dependence or distribution shift.
+
+[Version 2 methodology](V2_METHODOLOGY.md) states the exact selection and availability rules. [Version 2 results](V2_RESULTS.md) separates development evidence from retrospective comparison and retains the width cost of conservative coverage.

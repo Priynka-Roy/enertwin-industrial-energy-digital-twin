@@ -1,38 +1,35 @@
-# EnerTwin AI case study
+# EnerTwin AI Version 2 case study
 
-## Industrial problem
+## Industrial question
 
-Energy planning needs demand estimates and a transparent assessment of flexible workload timing. Forecast error and operational constraints make simple claims of savings unreliable. EnerTwin AI combines an honest daily forecast evaluation with a constrained scheduling simulator to expose those trade-offs.
+How can an energy planner schedule additional flexible work when background-demand forecasts are imperfect? EnerTwin AI combines real steel-facility electricity profiles, complete next-day forecasts, empirical uncertainty and a constrained hypothetical workload simulator. Version 2 investigates forecast-risk decisions rather than presenting a point forecast as certain.
 
-## Evidence and design
+## Evidence and implementation
 
-The source is UCI's Steel Industry Energy Consumption dataset, representing recorded electricity at one South Korean steel facility. Historical profiles, observed load categories, reactive energy and power factors support descriptive analysis. Only historical target values and known calendar information support future forecasts. Daily 96-step origins distinguish full-day forecasting from one-step regression with access to later measurements.
+The attributed UCI dataset provides 35,040 quarter-hour readings from one facility-year. A sequence-based correction restores midnight chronology without changing original measured values. Five models forecast 96 targets from one frozen midnight information set. V1 selected Histogram Gradient Boosting with original MAE 10.870 kWh/interval versus weekly seasonal naive 12.942. Its nominal 90% pointwise band covered only 78.70%, motivating the upgrade.
 
-Seasonal baselines, regularized linear forecasting and direct gradient boosting are compared chronologically. Validation chooses settings; separate September residual calibration supports evaluated prediction bands; October–December provides the final comparison. The project reports computed accuracy and coverage even when a baseline wins or uncertainty misses its target.
+V2 compares fixed horizon-wise, six-hour pooled and rolling pooled residual calibration. Pooled scores use complete daily maxima in each six-hour bin to avoid treating neighboring observations as independent. A development experiment selects methodology before the retained final-profile comparison. October–December results are explicitly retrospective because V1 already inspected those outcomes. Point forecasts remain unchanged; interval improvements do not constitute new independent predictive validation.
 
-## Operations model
+Signed whole-day residual paths support demand scenarios and preserve recorded intra-day co-movement. A SciPy HiGHS LP issues one workload schedule feasible under every included path. Deterministic and robust schedules complete identical hypothetical work and are evaluated on subsequently observed background, with infeasible issuance reported separately. The robust envelope formulation adds protection through constraints, while fixed tariffs make a distinct CVaR objective uninformative here.
 
-The background profile can be historical, a held-out forecast or an explicitly altered scenario. Additional flexible workload is hypothetical. A continuous linear program allocates its required energy within availability and power limits while respecting the total cap and minimizing tariff cost. The reference schedule is feasible under identical assumptions. Timing can change cost and peak power while conserving energy. Constant-factor emissions therefore remain unchanged.
+## Interpretation
 
-Four guided cases connect historical patterns, full-day forecasting, time-of-use optimization and cap sensitivity. Selected gradient boosting achieved final-test MAE 10.870 kWh/interval versus weekly naive 12.942, a 16.02% reduction. Its 90% pointwise residual band covered only 78.70%, showing why model accuracy and uncertainty reliability must be evaluated separately. Actual figures and metrics are recorded in [experiment results](EXPERIMENT_RESULTS.md). They support modeled decision analysis, not realized plant savings.
+Additional work, task windows, prices and equipment limits are assumptions. A scenario cost difference is conditional model output; it is not a measured factory benefit. Energy is conserved, average power is kWh/0.25 h, and a constant emissions factor cannot create emissions savings from shifting time. More conservative intervals or scenarios can improve measured coverage/protection while widening bands, raising costs or preventing issuance. [V2 results](V2_RESULTS.md) disclose these trade-offs and actual denominators.
 
-## Professional contribution
+## Evidence-based career drafts
 
-The work demonstrates chronological validation, leakage prevention, forecast uncertainty evaluation, energy/power units, optimization feasibility, reproducible artifacts and interactive presentation. GitHub publication is part of delivery. Public hosting and the combined CV/portfolio website are deferred as requested; no external deployment is claimed.
+These are draft source material for later CV/portfolio work, not edits to external profiles.
 
-## Interview talking points
+- Developed an eight-section industrial energy application using 35,040 real quarter-hour records, five causal 96-step forecast methods and reproducible chronological evaluation.
+- Implemented development-selected, time-aware residual calibration with complete-day score pooling, horizon/coverage/width diagnostics and explicit separation of retrospective results from independent validation.
+- Built and mathematically tested deterministic and finite-scenario robust SciPy HiGHS workload scheduling, including frozen-decision backtests, power-cap feasibility, workload conservation and modeled cost trade-offs.
 
-Explain why future load labels inflate forecasting results; why a full-day forecast freezes information at origin; why pointwise intervals differ from simultaneous daily coverage; why divisible workload needs an LP rather than job-start claims; why a cost-optimal schedule must be compared to a feasible reference; and why energy, peak demand, cost and emissions are separate outcomes.
+**GitHub description:** Industrial energy forecasting and uncertainty-aware digital twin with causal 24-hour forecasts, historical residual scenarios, robust HiGHS scheduling and an interactive Streamlit application.
 
+**LinkedIn draft:** EnerTwin AI explores industrial energy forecasting and scheduling under uncertain demand using real UCI steel-facility telemetry. It combines five complete next-day forecasters, empirically evaluated residual bands, whole-day scenario generation and a shared robust LP workload allocation. Version 2 reports retrospective coverage and hypothetical decision trade-offs openly, including infeasible cases. It demonstrates applied statistics, machine learning, operations research and reproducible decision support without claiming realized factory savings.
 
-## Draft career text for the later combined portfolio update
+## Technical interview explanation
 
-These drafts are evidence-based source material, not edits to a CV, LinkedIn profile or portfolio website.
+I froze all 96 predictions at midnight to avoid teacher forcing and excluded future observed load labels and electrical covariates. V1 undercoverage motivated uncertainty work, but its inspected test could no longer serve as new independent validation. I used earlier development data to compare empirical calibration and kept day-level score units because quarter-hour errors are dependent. Historical residual blocks retain intra-day structure; they define illustrative paths rather than calibrated scenario probabilities. The robust LP uses one allocation across all paths, and the componentwise background maximum is exactly equivalent to every supplied peak constraint. Fixed background costs do not affect scheduling preferences, so a separate CVaR method would add complexity without a meaningful decision difference. I evaluate frozen schedules against observed background plus hypothetical work and disclose feasibility rates alongside violations and costs.
 
-- Built an eight-section industrial energy analytics application using 35,040 real quarter-hour records, chronological 24-hour forecasting and independently checked scenario optimization.
-- Compared five forecasting methods across 92 held-out daily origins; selected direct gradient boosting reduced MAE 16.02% versus weekly seasonal naive, while documenting prediction-band undercoverage.
-- Implemented a SciPy HiGHS scheduling model with conserved workload, explicit power caps and feasibility tests; an illustrative tariff case reduced modeled charges €28 while preserving energy and assumed constant-factor emissions.
-
-**Short project summary:** EnerTwin AI combines industrial demand analysis, genuine next-day forecasting, empirical uncertainty assessment and constrained hypothetical workload scheduling. It uses real steel-facility telemetry and explicitly separates statistical evidence from assumed tariffs, workloads and emissions.
-
-**LinkedIn draft:** Built EnerTwin AI, an industrial energy forecasting and scheduling portfolio project using UCI steel-facility telemetry. Five methods issue complete 24-hour forecasts with chronological validation, and an interactive simulator uses a genuine constrained LP for hypothetical flexible workload. The selected model improved held-out MAE over weekly naive, but its prediction bands undercovered—a limitation reported openly. Scenario cost differences are modeled, not realized factory savings.
+Hosting both applications, the combined CV and the portfolio website remain the user's later phase.

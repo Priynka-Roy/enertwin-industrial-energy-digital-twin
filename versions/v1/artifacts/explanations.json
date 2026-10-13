@@ -1,0 +1,83 @@
+{
+  "ridge": {
+    "method": "Standardized coefficients fitted on January\u2013August; associations, not causal effects.",
+    "features": [
+      {
+        "feature": "previous_day",
+        "coefficient": 11.31357197042938
+      },
+      {
+        "feature": "previous_week",
+        "coefficient": 12.063893874861854
+      },
+      {
+        "feature": "last",
+        "coefficient": 2.6359615831634713
+      },
+      {
+        "feature": "day_mean",
+        "coefficient": 2.998716161951338
+      },
+      {
+        "feature": "day_std",
+        "coefficient": -1.025953474484292
+      },
+      {
+        "feature": "day_max",
+        "coefficient": -2.2608210948160288
+      },
+      {
+        "feature": "week_mean",
+        "coefficient": -3.5796981686284632
+      },
+      {
+        "feature": "week_std",
+        "coefficient": 3.0549182925610987
+      },
+      {
+        "feature": "hour_sin",
+        "coefficient": -3.3095540716572285
+      },
+      {
+        "feature": "hour_cos",
+        "coefficient": -4.956666019266221
+      },
+      {
+        "feature": "weekday_sin",
+        "coefficient": -2.690693862446813
+      },
+      {
+        "feature": "weekday_cos",
+        "coefficient": 2.8928221362215543
+      },
+      {
+        "feature": "weekend",
+        "coefficient": -8.594560821664595
+      },
+      {
+        "feature": "horizon",
+        "coefficient": -0.23743579697669506
+      }
+    ]
+  },
+  "hist_gradient_boosting": {
+    "method": "Validation origin-block group permutation: increase in MAE (kWh), five seeded repeats, train-only model. Correlated and synthetic feature combinations limit interpretation; not causal effects or independent uncertainty estimates.",
+    "features": [
+      {
+        "feature": "Aligned daily and weekly profiles",
+        "importance": 1.032926540122504,
+        "repeat_std": 0.22511365471026076
+      },
+      {
+        "feature": "Recent historical summaries",
+        "importance": 1.1686937534015978,
+        "repeat_std": 0.2685695668594898
+      },
+      {
+        "feature": "Known calendar and horizon",
+        "importance": 3.236012376972311,
+        "repeat_std": 0.5467436486612935
+      }
+    ]
+  }
+}

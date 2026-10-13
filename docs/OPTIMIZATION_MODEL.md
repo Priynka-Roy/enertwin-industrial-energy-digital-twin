@@ -43,3 +43,19 @@ Background demand already exceeding the peak limit is immediately infeasible. Ot
 Four quarter-hour slots each have background 1 kWh. A hypothetical task requires 2 kWh, with a maximum of 4 kW, full-horizon availability, shared capacity 4 kW and peak limit 8 kW. At prices `[4, 3, 1, 2]` €/kWh (deliberately simple mathematical fixture, **not a real tariff**), the reference allocates `[1,1,0,0]` kWh and the cost optimum `[0,0,1,1]` kWh. Total demand is 6 kWh in either schedule; modeled costs are €17 and €13, respectively, with 8 kW peak demand for each. These values are computed and asserted in the automated test.
 
 See [Digital twin assumptions](DIGITAL_TWIN.md) for scenario interpretation. See the generated experiment results for real-forecast scenarios with explicitly hypothetical workload and tariff assumptions.
+
+## Version 2 finite-scenario robust formulation
+
+Let `b[s,t]` be background kWh for supplied scenario `s`. Keep the same decision variable `x[j,t]` for **every scenario** and minimize the same flexible-energy charges. Replace the deterministic peak constraint with:
+
+```text
+b[s,t] + sum(j) x[j,t] <= peak_limit_kw * Δ, for every s,t
+```
+
+All task-completion, scheduling-window, individual-power and shared-capacity constraints remain unchanged. This is equivalent to a single LP whose background is `max(s) b[s,t]` at each interval. The envelope is a mathematical constraint reduction; it need not be a physically occurring path and its total energy/cost must not be reported as an actual or mean scenario outcome. Report supplied scenario costs separately.
+
+Under deterministic tariffs and exogenous additive background, scenario `s` total cost is `C[s] + sum(j,t) p[t]*x[j,t]`, where `C[s]` is decision-independent. Mean, probability-weighted expected and worst-case total-cost objectives therefore have the same minimizers **over the same feasible set**. There is no distinct informative CVaR scheduling policy under these assumptions. Robust scheduling differs from the deterministic policy through its feasible region. A robust schedule may cost more, cost the same, or be infeasible; it cannot improve the optimal flexible-cost value merely by adding constraints.
+
+The API `optimize_robust` checks nonnegative finite scenario matrices, calls SciPy HiGHS and independently verifies the shared allocation against every supplied scenario. Its guarantee is finite-set feasibility only: unseen demand can still exceed a cap. An arithmetic mean across illustrative scenarios is a descriptive mean, not a calibrated expected future bill.
+
+The robust baseline minimizes the same early-completion reference objective under robust constraints. For deterministic-versus-robust policy comparisons, both policies are evaluated on identical supplied profiles and the same observed background. Their respective reference schedules should not be confused with an observed factory schedule. Zero feasible schedules and background-only cap exceedance are explicitly reported; constraints are never silently relaxed.
