@@ -99,3 +99,5 @@ One facility-year cannot establish cross-plant or future-year reliability. Tempo
 [Audit](docs/V2_TECHNICAL_AUDIT.md) · [Experiments](docs/V2_EXPERIMENTS.md) · [Model card](docs/MODEL_CARD.md) · [Limitations](docs/LIMITATIONS.md) · [Scientific review](docs/FINAL_REVIEW.md) · [Portfolio case study and career drafts](docs/PORTFOLIO_CASE_STUDY.md) · [Later deployment](docs/DEPLOYMENT.md)
 
 This is an independent portfolio project, without industrial partner endorsement or measured financial/energy savings.
+
+Version 2 was merged through [PR #1](https://github.com/Priynka-Roy/enertwin-industrial-energy-digital-twin/pull/1) after Python 3.11/3.12 CI passed. Release tags preserve `v1.0.0` and `v2.0.0`; the local full suite passed 115 tests and Ruff.
