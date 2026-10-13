@@ -1,0 +1,316 @@
+{
+  "label": "Synthetic two-hour mathematical example, not UCI observed demand or 15-minute plant scenario",
+  "interval_hours": 1.0,
+  "prices_eur_kwh": [
+    1.0,
+    3.0
+  ],
+  "scenarios": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      0.0
+    ]
+  ],
+  "deterministic": {
+    "feasible": true,
+    "status": "optimal",
+    "message": "Optimal feasible schedule; independently verified constraints.",
+    "tasks": [
+      {
+        "name": "Synthetic illustrative job",
+        "energy_kwh": 1.0,
+        "max_power_kw": 1.0,
+        "start_slot": 0,
+        "end_slot": 2
+      }
+    ],
+    "interval_hours": 1.0,
+    "background_kwh": [
+      0.0,
+      0.0
+    ],
+    "prices_eur_kwh": [
+      1.0,
+      3.0
+    ],
+    "shared_capacity_kw": 1.0,
+    "peak_limit_kw": 1.0,
+    "solver": "SciPy HiGHS linear programming",
+    "baseline_kwh": [
+      1.0,
+      0.0
+    ],
+    "baseline_flexible_kwh": [
+      1.0,
+      0.0
+    ],
+    "baseline_task_allocations": {
+      "Synthetic illustrative job": [
+        1.0,
+        0.0
+      ]
+    },
+    "optimized_kwh": [
+      1.0,
+      0.0
+    ],
+    "optimized_flexible_kwh": [
+      1.0,
+      0.0
+    ],
+    "optimized_task_allocations": {
+      "Synthetic illustrative job": [
+        1.0,
+        0.0
+      ]
+    },
+    "solver_status": 0,
+    "constraint_verification": {
+      "baseline": {
+        "workload_conserved": true,
+        "windows_respected": true,
+        "task_capacity_respected": true,
+        "shared_capacity_respected": true,
+        "peak_limit_respected": true,
+        "nonnegative": true,
+        "energy_balance": true
+      },
+      "optimized": {
+        "workload_conserved": true,
+        "windows_respected": true,
+        "task_capacity_respected": true,
+        "shared_capacity_respected": true,
+        "peak_limit_respected": true,
+        "nonnegative": true,
+        "energy_balance": true
+      }
+    },
+    "metrics": {
+      "baseline": {
+        "total_energy_kwh": 1.0,
+        "flexible_energy_kwh": 1.0,
+        "cost_eur": 1.0,
+        "flexible_cost_eur": 1.0,
+        "peak_kw": 1.0
+      },
+      "optimized": {
+        "total_energy_kwh": 1.0,
+        "flexible_energy_kwh": 1.0,
+        "cost_eur": 1.0,
+        "flexible_cost_eur": 1.0,
+        "peak_kw": 1.0
+      }
+    },
+    "baseline_objective_eur": 1.0,
+    "optimized_objective_eur": 1.0,
+    "cost_savings_eur": 0.0,
+    "energy_savings_kwh": 0.0,
+    "peak_reduction_kw": 0.0
+  },
+  "robust": {
+    "feasible": true,
+    "status": "optimal",
+    "message": "Optimal feasible schedule; independently verified constraints.",
+    "tasks": [
+      {
+        "name": "Synthetic illustrative job",
+        "energy_kwh": 1.0,
+        "max_power_kw": 1.0,
+        "start_slot": 0,
+        "end_slot": 2
+      }
+    ],
+    "interval_hours": 1.0,
+    "background_kwh": [
+      1.0,
+      0.0
+    ],
+    "prices_eur_kwh": [
+      1.0,
+      3.0
+    ],
+    "shared_capacity_kw": 1.0,
+    "peak_limit_kw": 1.0,
+    "solver": "SciPy HiGHS linear programming",
+    "baseline_kwh": [
+      1.0,
+      1.0
+    ],
+    "baseline_flexible_kwh": [
+      0.0,
+      1.0
+    ],
+    "baseline_task_allocations": {
+      "Synthetic illustrative job": [
+        0.0,
+        1.0
+      ]
+    },
+    "optimized_kwh": [
+      1.0,
+      1.0
+    ],
+    "optimized_flexible_kwh": [
+      0.0,
+      1.0
+    ],
+    "optimized_task_allocations": {
+      "Synthetic illustrative job": [
+        0.0,
+        1.0
+      ]
+    },
+    "solver_status": 0,
+    "constraint_verification": {
+      "baseline": {
+        "workload_conserved": true,
+        "windows_respected": true,
+        "task_capacity_respected": true,
+        "shared_capacity_respected": true,
+        "peak_limit_respected": true,
+        "nonnegative": true,
+        "energy_balance": true
+      },
+      "optimized": {
+        "workload_conserved": true,
+        "windows_respected": true,
+        "task_capacity_respected": true,
+        "shared_capacity_respected": true,
+        "peak_limit_respected": true,
+        "nonnegative": true,
+        "energy_balance": true
+      }
+    },
+    "metrics": {
+      "baseline": {
+        "total_energy_kwh": 2.0,
+        "flexible_energy_kwh": 1.0,
+        "cost_eur": 4.0,
+        "flexible_cost_eur": 3.0,
+        "peak_kw": 1.0
+      },
+      "optimized": {
+        "total_energy_kwh": 2.0,
+        "flexible_energy_kwh": 1.0,
+        "cost_eur": 4.0,
+        "flexible_cost_eur": 3.0,
+        "peak_kw": 1.0
+      }
+    },
+    "baseline_objective_eur": 4.0,
+    "optimized_objective_eur": 4.0,
+    "cost_savings_eur": 0.0,
+    "energy_savings_kwh": 0.0,
+    "peak_reduction_kw": 0.0,
+    "background_scenarios": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ]
+    ],
+    "scenario_count": 2,
+    "method": "Exact finite-scenario LP using componentwise maximum background",
+    "objective_explanation": "Deterministic tariffs and fixed scenario backgrounds make flexible-cost, mean-total-cost, and worst-total-cost minimizers identical over the same robust feasible set.",
+    "guarantee_scope": "Constraints verified for supplied scenarios only; unseen demand may violate limits.",
+    "scenario_metrics": {
+      "baseline": [
+        {
+          "scenario_index": 0,
+          "total_energy_kwh": 1.0,
+          "flexible_energy_kwh": 1.0,
+          "flexible_cost_eur": 3.0,
+          "cost_eur": 3.0,
+          "peak_kw": 1.0
+        },
+        {
+          "scenario_index": 1,
+          "total_energy_kwh": 2.0,
+          "flexible_energy_kwh": 1.0,
+          "flexible_cost_eur": 3.0,
+          "cost_eur": 4.0,
+          "peak_kw": 1.0
+        }
+      ],
+      "optimized": [
+        {
+          "scenario_index": 0,
+          "total_energy_kwh": 1.0,
+          "flexible_energy_kwh": 1.0,
+          "flexible_cost_eur": 3.0,
+          "cost_eur": 3.0,
+          "peak_kw": 1.0
+        },
+        {
+          "scenario_index": 1,
+          "total_energy_kwh": 2.0,
+          "flexible_energy_kwh": 1.0,
+          "flexible_cost_eur": 3.0,
+          "cost_eur": 4.0,
+          "peak_kw": 1.0
+        }
+      ]
+    },
+    "scenario_constraint_verification": {
+      "baseline": [
+        {
+          "workload_conserved": true,
+          "windows_respected": true,
+          "task_capacity_respected": true,
+          "shared_capacity_respected": true,
+          "peak_limit_respected": true,
+          "nonnegative": true,
+          "energy_balance": true
+        },
+        {
+          "workload_conserved": true,
+          "windows_respected": true,
+          "task_capacity_respected": true,
+          "shared_capacity_respected": true,
+          "peak_limit_respected": true,
+          "nonnegative": true,
+          "energy_balance": true
+        }
+      ],
+      "optimized": [
+        {
+          "workload_conserved": true,
+          "windows_respected": true,
+          "task_capacity_respected": true,
+          "shared_capacity_respected": true,
+          "peak_limit_respected": true,
+          "nonnegative": true,
+          "energy_balance": true
+        },
+        {
+          "workload_conserved": true,
+          "windows_respected": true,
+          "task_capacity_respected": true,
+          "shared_capacity_respected": true,
+          "peak_limit_respected": true,
+          "nonnegative": true,
+          "energy_balance": true
+        }
+      ]
+    },
+    "scenario_cost_summary": {
+      "baseline": {
+        "mean_cost_eur": 3.5,
+        "worst_cost_eur": 4.0,
+        "max_peak_kw": 1.0
+      },
+      "optimized": {
+        "mean_cost_eur": 3.5,
+        "worst_cost_eur": 4.0,
+        "max_peak_kw": 1.0
+      }
+    }
+  }
+}

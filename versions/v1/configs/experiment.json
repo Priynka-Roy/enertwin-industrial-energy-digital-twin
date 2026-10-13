@@ -1,0 +1,20 @@
+{
+  "schema_version":1,
+  "seed":42,
+  "interval_minutes":15,
+  "horizon":96,
+  "first_origin":"2018-01-08",
+  "validation_start":"2018-07-01",
+  "calibration_start":"2018-09-01",
+  "test_start":"2018-10-01",
+  "final_origin":"2018-12-31",
+  "ridge_alphas":[10.0,100.0,1000.0],
+  "boosting_candidates":[{"max_leaf_nodes":15,"l2_regularization":10.0},{"max_leaf_nodes":31,"l2_regularization":20.0}],
+  "boosting_iterations":200,
+  "interval_levels":[0.8,0.9],
+  "peak_training_quantile":0.95,
+  "selection_metric":"validation MAE over all daily-origin 96-step forecasts, then simpler fixed order on exact ties",
+  "scenario_origin":"2018-10-01",
+  "timezone":"Unspecified by UCI; calendar derived from stored timestamps",
+  "observed_covariates_excluded":["Load_Type","CO2(tCO2)","Lagging_Current_Reactive.Power_kVarh","Leading_Current_Reactive_Power_kVarh","Lagging_Current_Power_Factor","Leading_Current_Power_Factor"]
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "seed": 42,
+  "v1_commit": "38f757f7ac49b01ea483683e3ee5fb5f7d9e4746",
+  "horizon": 96,
+  "interval_hours": 0.25,
+  "levels": [
+    0.8,
+    0.9
+  ],
+  "bin_size": 24,
+  "rolling_days": 60,
+  "min_blocks": 20,
+  "development_calibration_start": "2018-07-01",
+  "development_evaluation_start": "2018-09-01",
+  "development_end": "2018-09-30",
+  "retrospective_start": "2018-10-01",
+  "retrospective_end": "2018-12-31",
+  "coverage_tolerance": 0.03,
+  "selection": "Development HGB: coverage >= target-0.03 at both levels then smallest mean width; otherwise smallest mean absolute coverage deviation, width tie break. Never inspect retrospective results for selection.",
+  "methods": [
+    "v1_fixed",
+    "fixed_pooled",
+    "rolling_pooled"
+  ],
+  "scenario_count": 12,
+  "scenario_strength": 1.0,
+  "scenario_history_days": 60,
+  "peak_caps_kw": [
+    350,
+    500,
+    700
+  ],
+  "shared_capacity_kw": 80,
+  "tasks": [
+    {
+      "name": "Assumed batch A",
+      "energy_kwh": 120,
+      "max_power_kw": 40,
+      "start_slot": 32,
+      "end_slot": 96
+    },
+    {
+      "name": "Assumed batch B",
+      "energy_kwh": 80,
+      "max_power_kw": 40,
+      "start_slot": 40,
+      "end_slot": 96
+    }
+  ],
+  "tariff": {
+    "offpeak_eur_kwh": 0.08,
+    "peak_eur_kwh": 0.22,
+    "peak_start_hour": 8,
+    "peak_end_hour": 20
+  },
+  "evaluation_status": "Previously inspected original test; all new October-December comparisons retrospective. No new independent validation.",
+  "diagnostic_parameter_selection": {
+    "training_start": "2018-01-08",
+    "training_end": "2018-03-31",
+    "validation_start": "2018-04-01",
+    "validation_end": "2018-06-30",
+    "refit_end": "2018-06-30"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "total_kwh": 959636.7099999998,
+  "daily_mean_kwh": 2629.141671232877,
+  "autocorrelation": {
+    "1": 0.9130440586645662,
+    "96": 0.6062959009726046,
+    "672": 0.6767029430388848
+  },
+  "monthly_kwh": {
+    "1": 126238.29,
+    "2": 91497.34,
+    "3": 80230.41,
+    "4": 78769.8,
+    "5": 79059.28,
+    "6": 65404.64,
+    "7": 81674.41,
+    "8": 68559.43,
+    "9": 57883.07,
+    "10": 84665.65,
+    "11": 86217.61,
+    "12": 59436.78
+  },
+  "numerical_correlations": {
+    "Usage_kWh": {
+      "Usage_kWh": 1.0,
+      "Lagging_Current_Reactive.Power_kVarh": 0.8961499010002166,
+      "Leading_Current_Reactive_Power_kVarh": -0.32492178394544313,
+      "CO2(tCO2)": 0.9881797716789519,
+      "Lagging_Current_Power_Factor": 0.3859604614141433,
+      "Leading_Current_Power_Factor": 0.35356570854787994,
+      "NSM": 0.23461032726439154,
+      "average_power_kw": 1.0
+    },
+    "Lagging_Current_Reactive.Power_kVarh": {
+      "Usage_kWh": 0.8961499010002166,
+      "Lagging_Current_Reactive.Power_kVarh": 1.0,
+      "Leading_Current_Reactive_Power_kVarh": -0.4051416776259845,
+      "CO2(tCO2)": 0.8869477080514382,
+      "Lagging_Current_Power_Factor": 0.14453375532413176,
+      "Leading_Current_Power_Factor": 0.4077162820034886,
+      "NSM": 0.082662371226899,
+      "average_power_kw": 0.8961499010002166
+    },
+    "Leading_Current_Reactive_Power_kVarh": {
+      "Usage_kWh": -0.32492178394544313,
+      "Lagging_Current_Reactive.Power_kVarh": -0.4051416776259845,
+      "Leading_Current_Reactive_Power_kVarh": 1.0,
+      "CO2(tCO2)": -0.3327766451771398,
+      "Lagging_Current_Power_Factor": 0.5267704711405935,
+      "Leading_Current_Power_Factor": -0.9440389991536535,
+      "NSM": 0.3716045664455423,
+      "average_power_kw": -0.32492178394544313
+    },
+    "CO2(tCO2)": {
+      "Usage_kWh": 0.9881797716789519,
+      "Lagging_Current_Reactive.Power_kVarh": 0.8869477080514382,
+      "Leading_Current_Reactive_Power_kVarh": -0.3327766451771398,
+      "CO2(tCO2)": 1.0,
+      "Lagging_Current_Power_Factor": 0.3796047197704908,
+      "Leading_Current_Power_Factor": 0.36001910096017814,
+      "NSM": 0.23172599741262448,
+      "average_power_kw": 0.9881797716789517
+    },
+    "Lagging_Current_Power_Factor": {
+      "Usage_kWh": 0.3859604614141433,
+      "Lagging_Current_Reactive.Power_kVarh": 0.14453375532413176,
+      "Leading_Current_Reactive_Power_kVarh": 0.5267704711405935,
+      "CO2(tCO2)": 0.3796047197704908,
+      "Lagging_Current_Power_Factor": 1.0,
+      "Leading_Current_Power_Factor": -0.5199668536819609,
+      "NSM": 0.5652695070724054,
+      "average_power_kw": 0.3859604614141432
+    },
+    "Leading_Current_Power_Factor": {
+      "Usage_kWh": 0.35356570854787994,
+      "Lagging_Current_Reactive.Power_kVarh": 0.4077162820034886,
+      "Leading_Current_Reactive_Power_kVarh": -0.9440389991536535,
+      "CO2(tCO2)": 0.36001910096017814,
+      "Lagging_Current_Power_Factor": -0.5199668536819609,
+      "Leading_Current_Power_Factor": 1.0,
+      "NSM": -0.3605629891708783,
+      "average_power_kw": 0.3535657085478799
+    },
+    "NSM": {
+      "Usage_kWh": 0.23461032726439154,
+      "Lagging_Current_Reactive.Power_kVarh": 0.082662371226899,
+      "Leading_Current_Reactive_Power_kVarh": 0.3716045664455423,
+      "CO2(tCO2)": 0.23172599741262448,
+      "Lagging_Current_Power_Factor": 0.5652695070724054,
+      "Leading_Current_Power_Factor": -0.3605629891708783,
+      "NSM": 1.0,
+      "average_power_kw": 0.23461032726439152
+    },
+    "average_power_kw": {
+      "Usage_kWh": 1.0,
+      "Lagging_Current_Reactive.Power_kVarh": 0.8961499010002166,
+      "Leading_Current_Reactive_Power_kVarh": -0.32492178394544313,
+      "CO2(tCO2)": 0.9881797716789517,
+      "Lagging_Current_Power_Factor": 0.3859604614141432,
+      "Leading_Current_Power_Factor": 0.3535657085478799,
+      "NSM": 0.23461032726439152,
+      "average_power_kw": 1.0
+    }
+  },
+  "training_hourly_adf": {
+    "statistic": -8.46532517040349,
+    "p_value": 6.027729638236714e-12,
+    "lags": 24,
+    "interpretation": "Trend-unit-root diagnostic only; seasonal structure and changing operations prevent a general stationarity conclusion."
+  }
+}

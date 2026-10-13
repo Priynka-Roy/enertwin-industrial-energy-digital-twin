@@ -1,0 +1,17 @@
+{
+  "sha256": {
+    "artifacts/v2/metrics.json": "8ba23a10e15bcada72a997e1111f3d235f236cd1ad9e070614342f4c88f95539",
+    "artifacts/v2/hand_calculated_case.json": "668b9cbf676b69d8bfeeed0e9e043b205ca136225a38449fdd0485fbcc6d64ff",
+    "artifacts/v2/case_study.json": "7e00e0dd1d7fe312770ebc301b67d0aa3065245403cb57a025a19e6a3807d0e0",
+    "artifacts/v2/uncertainty_metrics.json": "c1a5c2755f64e3093f07a1fa3ae3ead052f755a8698cdbbd68d4ce8e551f008f",
+    "artifacts/v2/sensitivity.json": "892960b61192ec30381b98dbb9ed0c6b3cd4124a0871d368695239c61bef06ea",
+    "artifacts/v2/decision_summary.json": "b93eb883ec530259b6a4e8d86611fed635d47827e9e04fbb22133515b1f9fb13",
+    "artifacts/v2/decision_backtest.parquet": "2f1074af6a9fd4a2395af996e6cc03e574602364f957b225d1303ad3d3c47a0b",
+    "artifacts/v2/development_selection.json": "41f89a862b96c494bcc8e9175e7d997b4e8ed160249ec60b75cf6d623d515aae",
+    "artifacts/v2/diagnostic_model_selection.json": "6220fa303e76a6af8c6cb8204b4cd0d4a75173e43b5ce9e61464195ad2fa9956",
+    "data/demo/v2/development_uncertainty.parquet": "60ff0b765713c81fefeb7a463abb6e182e23be9dd9937826a000abe627686193",
+    "data/demo/v2/development_forecasts.parquet": "aa41eb3774b8938f42a6a250d2c4a214b4a135bb27c026d4ad7089c1a992baf3",
+    "data/demo/v2/uncertainty.parquet": "26f0c1faffab5aa5619512bac714551042030b5721331d17a4c020f005f87bad",
+    "data/demo/v2/forecasts.parquet": "a3e1447c1b3fe3152357beca1903488fa9a7d88a11efce03a38d9f306f522945"
+  }
+}

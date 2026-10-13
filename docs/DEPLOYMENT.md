@@ -16,3 +16,9 @@ Committed lightweight data, model/evaluation artifacts and scenario outputs supp
 For later Streamlit Community Cloud deployment, choose public repository `Priynka-Roy/enertwin-industrial-energy-digital-twin`, branch `main`, entry point `streamlit_app.py`, and Python 3.12. Deploy with committed artifacts and no private paths or credentials. Account sign-in and platform terms are completed by the user when hosting begins. Verify every page and a reachable public URL before adding a live-demo badge.
 
 The raw source is excluded from routine deployment and CI. Reproduction downloads it through the official ingestion script. Scenarios use local open-source SciPy HiGHS, not a paid optimization API. Public views must retain dataset attribution and the distinction between observed energy, forecasts and hypothetical costs.
+
+## Version 2 deployment checks
+
+V2 retains the entry point and local port, with separate portable uncertainty/decision artifacts. Historical preserved files in `versions/v1/` are evidence archives and do not need to be loaded by the app. No raw telemetry download, model fitting, external optimizer subscription or credentials are required during startup. Confirm the active V2 artifact schema and manifest integrity, exercise all eight pages and distinguish missing/incompatible artifacts from infeasible user scenarios.
+
+Public hosting remains deferred. A verified local application and passing deployment integration tests establish readiness, not an already hosted service.

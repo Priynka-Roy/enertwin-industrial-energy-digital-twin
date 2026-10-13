@@ -41,3 +41,11 @@ No realized energy, financial or sustainability benefit is claimed. Costs exclud
 ## API
 
 `simulate_scenario(background_kwh, prices_eur_kwh, tasks, shared_capacity_kw, peak_limit_kw, demand_multiplier=1, emissions_kg_per_kwh=0.4)` returns the solver result, verified schedules when feasible, scenario metrics and explicit assumptions. `optimize_schedule` owns the LP and fair reference formulation. `tariff_profile` generates an illustrative midnight-aligned vector. All outputs are JSON-safe and suitable for lightweight committed artifacts. See [Optimization model](OPTIMIZATION_MODEL.md) for the complete formulation and tests.
+
+## Version 2 uncertainty-aware scenarios
+
+The upgraded scenario generator preserves whole signed historical residual days instead of independently sampling individual intervals. It uses only days whose complete 24-hour outcomes were available at the decision origin, records their source dates and fixes the random seed. Lower/higher profiles are selected by residual-day total, then added to the current forecast; they are not marginal confidence bounds. A synthetic positive-error stress case uses a 1.5× multiplier and is labeled separately. The scenario strength is an assumption, and nonnegative demand clipping is recorded.
+
+The app compares central, historical residual and synthetic stress demand with baseline, deterministic and finite-scenario robust allocations. A single robust allocation must satisfy all supplied scenario constraints. This describes robustness to the chosen set; it assigns no probability to that set and makes no promise about unseen background demand.
+
+The chronological decision study freezes allocations before evaluating observed historical background. Background observations are real; the extra work, operating limits, tariffs and decision outcomes remain hypothetical. Robust infeasibility is a decision-support result, not a zero-violation successful schedule. [V2 results](V2_RESULTS.md) report denominators and cost-versus-protection trade-offs.

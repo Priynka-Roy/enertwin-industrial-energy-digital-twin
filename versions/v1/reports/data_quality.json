@@ -1,0 +1,30 @@
+{
+  "rows": 35040,
+  "start": "2018-01-01 00:15:00",
+  "end": "2019-01-01 00:00:00",
+  "missing": {
+    "Usage_kWh": 0,
+    "Lagging_Current_Reactive.Power_kVarh": 0,
+    "Leading_Current_Reactive_Power_kVarh": 0,
+    "CO2(tCO2)": 0,
+    "Lagging_Current_Power_Factor": 0,
+    "Leading_Current_Power_Factor": 0,
+    "NSM": 0,
+    "WeekStatus": 0,
+    "Day_of_week": 0,
+    "Load_Type": 0
+  },
+  "duplicate_timestamps": 0,
+  "interval_minutes": 15,
+  "target_min": 0.0,
+  "target_max": 157.18,
+  "calendar_end_day_disagreements": 365,
+  "calendar_interval_start_day_disagreements": 0,
+  "nsm_end_seconds_disagreements": 0,
+  "load_category_counts": {
+    "Light_Load": 18072,
+    "Medium_Load": 9696,
+    "Maximum_Load": 7272
+  },
+  "same_date_midnight_corrections": 365
+}

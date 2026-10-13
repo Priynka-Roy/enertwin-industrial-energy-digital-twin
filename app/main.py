@@ -41,11 +41,73 @@ def load_artifacts(root: str = str(ROOT)) -> tuple[pd.DataFrame, pd.DataFrame, d
         history = history.set_index("timestamp")
     history.index = pd.to_datetime(history.index)
     history = history.sort_index()
-    forecasts = pd.read_parquet(base / "data/demo/forecasts.parquet")
+    forecast_path = base / "data/demo/v2/forecasts.parquet"
+    metrics_path = base / "artifacts/v2/metrics.json"
+    if forecast_path.exists() != metrics_path.exists():
+        raise ValueError("V2 forecast and metrics artifacts must be published together.")
+    use_v2 = forecast_path.exists()
+    if not use_v2:
+        forecast_path = base / "data/demo/forecasts.parquet"
+        metrics_path = base / "artifacts/metrics.json"
+    metrics = json.loads(metrics_path.read_text())
+    if use_v2 and metrics.get("schema_version") != 2:
+        raise ValueError("V2 metrics require schema_version 2.")
+    forecasts = pd.read_parquet(forecast_path)
     for column in ("origin", "target_timestamp"):
         forecasts[column] = pd.to_datetime(forecasts[column])
-    metrics = json.loads((base / "artifacts/metrics.json").read_text())
     return history, forecasts, metrics
+
+
+METHOD_NAMES = {
+    "v1_fixed": "V1 fixed horizon calibration",
+    "fixed_pooled": "Fixed pooled calibration",
+    "rolling_pooled": "Past-only rolling pooled calibration",
+}
+
+
+@st.cache_data(show_spinner=False)
+def load_uncertainty(root: str = str(ROOT)) -> pd.DataFrame:
+    path = Path(root) / "data/demo/v2/uncertainty.parquet"
+    if not path.exists():
+        return pd.DataFrame()
+    frame = pd.read_parquet(path)
+    for column in ("origin", "target_timestamp"):
+        frame[column] = pd.to_datetime(frame[column])
+    return frame
+
+
+def uncertainty_diagnostics(frame: pd.DataFrame, peak_threshold: float) -> dict[str, pd.DataFrame]:
+    """Retrospective coverage strata; actual demand labels never drive calibration."""
+    rows = frame.copy()
+    rows["Horizon block"] = pd.cut(
+        rows.horizon, [0, 24, 48, 72, 96], labels=["0–6 h", "6–12 h", "12–18 h", "18–24 h"]
+    )
+    rows["Calendar month"] = rows.origin.dt.strftime("%Y-%m")
+    rows["Demand stratum"] = np.where(
+        rows.actual >= peak_threshold, "High demand (training threshold)", "Other demand"
+    )
+    result = {}
+    for dimension in ("method", "Horizon block", "Calendar month", "Demand stratum", "origin"):
+        summaries = []
+        for level in (80, 90):
+            lo, hi = f"lower{level}", f"upper{level}"
+            measured = rows.assign(
+                covered=rows.actual.between(rows[lo], rows[hi]), width=rows[hi] - rows[lo]
+            )
+            group = measured.groupby(
+                ["model", "method", dimension] if dimension != "method" else ["model", "method"],
+                observed=True,
+            )
+            summary = group.agg(
+                coverage=("covered", "mean"),
+                mean_width_kwh=("width", "mean"),
+                intervals=("covered", "size"),
+            ).reset_index()
+            summary["nominal_percent"] = level
+            summary["coverage_percent"] = 100 * summary.pop("coverage")
+            summaries.append(summary)
+        result[dimension] = pd.concat(summaries, ignore_index=True)
+    return result
 
 
 def energy_column(history: pd.DataFrame) -> str:
@@ -274,7 +336,10 @@ def forecast_controls(
 
 def forecasting(history: pd.DataFrame, forecasts: pd.DataFrame, metrics: dict) -> None:
     st.caption(
-        "FINAL TEST FORECASTS · Out-of-sample retrospective forecasts; not a live facility feed."
+        "RETROSPECTIVE RESEARCH FORECASTS · V2 improvements are evaluated on the previously inspected "
+        "2018 period; this is not a new untouched test or a live facility feed."
+        if metrics.get("schema_version") == 2
+        else "FINAL TEST FORECASTS · Out-of-sample retrospective forecasts; not a live facility feed."
     )
     st.info(
         f"Validation-selected model: {MODEL_NAMES.get(metrics.get('selected_model'), metrics.get('selected_model'))}. "
@@ -282,6 +347,30 @@ def forecasting(history: pd.DataFrame, forecasts: pd.DataFrame, metrics: dict) -
     )
     selected, model = forecast_controls(forecasts, selected_model=metrics.get("selected_model"))
     origin = selected["origin"].iloc[0]
+    uncertainty = load_uncertainty() if metrics.get("schema_version") == 2 else pd.DataFrame()
+    if not uncertainty.empty:
+        choices = uncertainty.loc[(uncertainty.model == model) & (uncertainty.origin == origin)]
+        methods = choices.method.unique().tolist()
+        method = st.selectbox(
+            "Uncertainty calibration method",
+            methods,
+            index=methods.index(metrics.get("selected_uncertainty_method"))
+            if metrics.get("selected_uncertainty_method") in methods
+            else 0,
+            format_func=lambda value: METHOD_NAMES.get(value, value),
+        )
+        bands = choices.loc[
+            (choices.method == method) & choices.horizon.isin(selected.horizon)
+        ].sort_values("horizon")
+        if len(bands) != len(selected):
+            st.error("Uncertainty artifact does not contain a complete matching horizon.")
+            return
+        selected = selected.copy()
+        for column in ("lower80", "upper80", "lower90", "upper90"):
+            selected[column] = bands[column].to_numpy()
+        st.caption(
+            "Rolling calibration uses only completed earlier forecast days. Pooled methods calibrate the maximum error within each six-hour block across earlier days; these displayed bounds do not target simultaneous whole-day coverage. Fixed methods retain their earlier calibration sample. None uses this origin's future actuals."
+        )
     energy = energy_column(history)
     context = history.loc[
         (history.index > origin - pd.Timedelta(days=1)) & (history.index <= origin)
@@ -472,7 +561,7 @@ def performance(history: pd.DataFrame, forecasts: pd.DataFrame, metrics: dict) -
         "Interval metrics above assess individual bins; the separate day-block envelope targets "
         "simultaneous coverage of a complete 96-interval day. Temporal dependence still limits guarantees."
     )
-    with st.expander("Simultaneous whole-day interval evaluation"):
+    with st.expander("V1 simultaneous whole-day reference evaluation"):
         st.json(
             {
                 model: values.get("day_block90", {})
@@ -491,6 +580,58 @@ def performance(history: pd.DataFrame, forecasts: pd.DataFrame, metrics: dict) -
             st.caption(
                 "Future load category is an evaluation label only. It never enters forecast features."
             )
+    if metrics.get("schema_version") == 2:
+        uncertainty = load_uncertainty()
+        if not uncertainty.empty:
+            uncertainty = uncertainty.loc[uncertainty.origin.isin(test.origin.unique())]
+            diagnostics = uncertainty_diagnostics(uncertainty, metrics["peak_threshold_kwh"])
+            block_rows = []
+            for model, levels in metrics.get("intervals", {}).items():
+                for nominal in (80, 90):
+                    measured = levels.get(str(nominal), {})
+                    block_rows.append(
+                        {
+                            "Model": MODEL_NAMES.get(model, model),
+                            "Nominal (%)": nominal,
+                            "Pointwise coverage (%)": 100 * measured.get("coverage", np.nan),
+                            "Six-hour block coverage (%)": 100
+                            * measured.get("six_hour_block_coverage", np.nan),
+                            "Whole-day coverage (%)": 100
+                            * measured.get("whole_day_coverage", np.nan),
+                            "Mean width (kWh)": measured.get("mean_width", np.nan),
+                        }
+                    )
+            st.markdown("#### Selected calibration: interval, block and day coverage")
+            st.dataframe(pd.DataFrame(block_rows), hide_index=True, width="stretch")
+            st.caption(
+                "Pointwise coverage can be high while complete blocks or days remain uncovered. Six-hour maxima target six-hour blocks; no 90% simultaneous whole-day guarantee follows."
+            )
+            st.markdown("#### Compare uncertainty calibration methods")
+            st.dataframe(diagnostics["method"], hide_index=True, width="stretch")
+            with st.expander("Coverage by horizon, calendar and high demand"):
+                for dimension in ("Horizon block", "Calendar month", "Demand stratum"):
+                    st.markdown(f"**{dimension}**")
+                    st.dataframe(diagnostics[dimension], hide_index=True, width="stretch")
+                st.caption(
+                    "Calendar and high-demand strata are retrospective evaluation labels. High demand uses the original training threshold. They are not future-known calibration inputs."
+                )
+            with st.expander("Daily interval stability"):
+                daily = diagnostics["origin"].copy()
+                chart(
+                    px.line(
+                        daily,
+                        x="origin",
+                        y="mean_width_kwh",
+                        color="method",
+                        facet_row="nominal_percent",
+                        line_group="model",
+                        title="Mean interval width by completed forecast day",
+                    )
+                )
+                st.dataframe(daily, hide_index=True, width="stretch")
+        st.info(
+            "V2 is a retrospective development comparison on the already inspected V1 test period. Causal residual cutoffs prevent look-ahead within each origin; they do not create a fresh independent holdout."
+        )
     with st.expander("Recorded evaluation protocol and provenance"):
         st.json(metrics)
     st.warning(
@@ -586,22 +727,18 @@ def scenario_controls(forecasts: pd.DataFrame, selected_model: str | None = None
         "window": window,
         "hours": hours,
         "uncertainty": uncertainty,
+        "multiplier": multiplier,
     }
 
 
-def run_scenario(inputs: dict):
-    # Imported lazily so observed analytics remain available if scenario artifacts are absent.
-    from enertwin.optimization import optimize_schedule
-
+def scenario_tasks(inputs: dict) -> list[dict]:
+    """Build the same hypothetical divisible workload for every scheduling policy."""
     allowed = np.flatnonzero(
         (inputs["hours"] >= inputs["window"][0]) & (inputs["hours"] < inputs["window"][1])
     )
     if inputs["taskenergy"] and len(allowed) == 0:
-        return {
-            "feasible": False,
-            "message": "The permitted window has no intervals for required work.",
-        }
-    tasks = (
+        raise ValueError("The permitted window has no intervals for required work.")
+    return (
         [
             {
                 "name": "Illustrative flexible workload",
@@ -614,6 +751,15 @@ def run_scenario(inputs: dict):
         if inputs["taskenergy"]
         else []
     )
+
+
+def run_scenario(inputs: dict):
+    from enertwin.optimization import optimize_schedule
+
+    try:
+        tasks = scenario_tasks(inputs)
+    except ValueError as exc:
+        return {"feasible": False, "message": str(exc)}
     return optimize_schedule(
         inputs["base"],
         inputs["prices"],
@@ -631,6 +777,174 @@ def scenario_page(history: pd.DataFrame, forecasts: pd.DataFrame, metrics: dict,
         st.error(f"Invalid scenario: {exc}")
         return
     render_scenario(result, inputs, mode)
+    if metrics.get("schema_version") == 2:
+        render_robust_comparison(inputs, forecasts)
+
+
+def completed_residual_blocks(
+    forecasts: pd.DataFrame, model: str, origin: pd.Timestamp
+) -> tuple[np.ndarray, list[pd.Timestamp]]:
+    """Only full 96-step paths whose final actual is available at the decision origin."""
+    groups = forecasts.loc[forecasts.model == model].groupby("origin", sort=True)
+    blocks, origins = [], []
+    for prior_origin, group in groups:
+        group = group.sort_values("horizon")
+        if (
+            len(group) == 96
+            and group.horizon.tolist() == list(range(1, 97))
+            and group.target_timestamp.max() <= origin
+        ):
+            blocks.append((group.actual - group.prediction).to_numpy())
+            origins.append(pd.Timestamp(prior_origin))
+    return np.asarray(blocks[-60:], dtype=float).reshape(-1, 96), origins[-60:]
+
+
+def render_robust_comparison(inputs: dict, forecasts: pd.DataFrame) -> None:
+    from enertwin.robust import optimize_robust
+    from enertwin.scenarios import generate_scenarios
+    from enertwin.optimization import optimize_schedule
+
+    st.markdown("#### Deterministic and finite-scenario robust scheduling")
+    st.write(
+        "Compare a shared task allocation across intact earlier residual-day paths. This panel uses the central point forecast, independent of the single-envelope reference control above."
+    )
+    strength = st.slider("Historical residual scenario strength", 0.0, 2.0, 1.0, 0.1)
+    count = st.slider("Finite scenario count", 4, 20, 12)
+    profile = inputs["profile"].sort_values("horizon")
+    origin = pd.Timestamp(profile.origin.iloc[0])
+    model = profile.model.iloc[0]
+    blocks, origins = completed_residual_blocks(forecasts, model, origin)
+    multiplier = inputs["multiplier"]
+    try:
+        scenarios = generate_scenarios(
+            profile.prediction.to_numpy(),
+            blocks,
+            origins,
+            origin,
+            n_scenarios=count,
+            strength=strength,
+            seed=42,
+        )
+        paths = np.asarray(scenarios["profiles"]) * multiplier
+        tasks = scenario_tasks(inputs)
+        nominal = optimize_schedule(
+            paths[0],
+            inputs["prices"],
+            tasks,
+            shared_capacity_kw=inputs["capacity"],
+            peak_limit_kw=inputs["peaklimit"],
+        )
+        robust = optimize_robust(
+            paths,
+            inputs["prices"],
+            tasks,
+            shared_capacity_kw=inputs["capacity"],
+            peak_limit_kw=inputs["peaklimit"],
+        )
+    except (ValueError, TypeError) as exc:
+        st.warning(f"Robust comparison unavailable: {exc}")
+        return
+    choice = st.selectbox(
+        "Demand path to inspect",
+        list(range(len(paths))),
+        format_func=lambda value: scenarios["labels"][value],
+    )
+    chart(
+        px.line(
+            x=profile.target_timestamp,
+            y=paths[choice] / 0.25,
+            title=scenarios["labels"][choice],
+            labels={"x": "Timestamp", "y": "Scenario interval-average demand (kW)"},
+        )
+    )
+    st.caption(
+        f"{scenarios['eligible_blocks']} completed earlier residual days; seed 42. Central, lower-total, higher-total and resampled whole-day blocks preserve within-day dependence. Synthetic stress uses positive high-day residuals at 1.5× strength; no probabilities are assigned."
+    )
+    comparison = []
+    for label, result in (
+        ("Deterministic central plan", nominal),
+        ("Finite-scenario robust plan", robust),
+    ):
+        if not result["feasible"]:
+            comparison.append(
+                {
+                    "Policy": label,
+                    "Feasible on planning constraints": False,
+                    "Worst scenario cost (€)": np.nan,
+                    "Worst scenario peak (kW)": np.nan,
+                    "Scenario violation intervals": np.nan,
+                }
+            )
+            st.warning(f"{label}: {result['message']}. No schedule or savings is substituted.")
+            continue
+        flexible = np.asarray(result["optimized_flexible_kwh"])
+        total = paths + flexible
+        comparison.append(
+            {
+                "Policy": label,
+                "Feasible on planning constraints": True,
+                "Worst scenario cost (€)": float((total @ inputs["prices"]).max()),
+                "Worst scenario peak (kW)": float(total.max() / 0.25),
+                "Scenario violation intervals": int(
+                    (total > inputs["peaklimit"] * 0.25 + 1e-7).sum()
+                ),
+                "Flexible energy (kWh)": float(flexible.sum()),
+            }
+        )
+    st.dataframe(pd.DataFrame(comparison), width="stretch", hide_index=True)
+    if robust["feasible"]:
+        detail = pd.DataFrame(robust["scenario_metrics"]["optimized"])
+        detail.insert(0, "Scenario", scenarios["labels"])
+        st.dataframe(detail, width="stretch", hide_index=True)
+    st.info(
+        "The robust guarantee covers only the supplied finite scenarios. Unseen demand can still violate the limit. Deterministic tariffs and decision-independent backgrounds make mean and worst total-cost minimizers identical over the same robust feasible set."
+    )
+    with st.expander("Scenario source dates and constraint verification"):
+        st.dataframe(
+            pd.DataFrame(
+                {
+                    "Scenario": scenarios["labels"],
+                    "Kind": scenarios["kinds"],
+                    "Residual source origin": scenarios["source_origins"],
+                }
+            ),
+            hide_index=True,
+            width="stretch",
+        )
+        st.json(robust.get("scenario_constraint_verification", {}))
+    case_path = ROOT / "artifacts/v2/case_study.json"
+    if case_path.exists():
+        with st.expander("Guided uncertainty case · development period"):
+            case = json.loads(case_path.read_text())
+            central = np.asarray(case["scenarios"]["profiles"][0])
+            prices = np.asarray(case["deterministic"]["prices_eur_kwh"])
+            rows = []
+            for policy in ["deterministic", "robust"]:
+                plan = case[policy]
+                flexible = np.asarray(plan["optimized_flexible_kwh"])
+                rows.append(
+                    {
+                        "Policy": policy,
+                        "Central-path modeled cost (€)": float((central + flexible) @ prices),
+                        "Flexible energy (kWh)": float(flexible.sum()),
+                        "Planning feasible": plan["feasible"],
+                    }
+                )
+            st.caption(
+                f"{case['origin']} · {case['partition']} · cap {case['peak_limit_kw']} kW. First chronological pair feasible under both policies; selected without filtering favorable costs."
+            )
+            st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+            st.write(
+                "This separate diagnostic model was fitted through June; the app's current forecast model retains the V1 fit through August. Costs use hypothetical tasks and tariffs. Equal costs in this case do not establish free robustness or reduced future violations."
+            )
+    path = ROOT / "artifacts/v2/decision_backtest.parquet"
+    if path.exists():
+        with st.expander("Retrospective decision backtest · frozen schedules"):
+            backtest = pd.read_parquet(path)
+            st.dataframe(backtest, width="stretch", hide_index=True)
+            st.caption(
+                "Each schedule is planned before its day's actuals are read. Realized cost, peak and violations are then measured with the frozen task allocation. These are illustrative historical comparisons on the previously inspected period, not measured interventions."
+            )
 
 
 def render_scenario(result, inputs: dict, mode: str) -> None:
@@ -818,11 +1132,14 @@ def main() -> None:
         history, forecasts, metrics = load_artifacts()
     except (FileNotFoundError, ValueError, KeyError) as exc:
         st.error(f"Deployment artifacts could not be loaded: {exc}")
-        st.code("python scripts/run_pipeline.py")
+        st.code("python scripts/run_v2.py")
         st.info(
             "Generate the reproducible artifacts before starting the app. No model is trained during startup."
         )
         return
+    st.caption(
+        f"Version {metrics.get('schema_version', 1)} · Historical research application · No prospective validation"
+    )
     handlers = {
         "Energy Overview": overview,
         "Data Explorer": explorer,

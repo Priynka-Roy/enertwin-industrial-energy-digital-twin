@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "config": {
+    "schema_version": 2,
+    "seed": 42,
+    "v1_commit": "38f757f7ac49b01ea483683e3ee5fb5f7d9e4746",
+    "horizon": 96,
+    "interval_hours": 0.25,
+    "levels": [
+      0.8,
+      0.9
+    ],
+    "bin_size": 24,
+    "rolling_days": 60,
+    "min_blocks": 20,
+    "development_calibration_start": "2018-07-01",
+    "development_evaluation_start": "2018-09-01",
+    "development_end": "2018-09-30",
+    "retrospective_start": "2018-10-01",
+    "retrospective_end": "2018-12-31",
+    "coverage_tolerance": 0.03,
+    "selection": "Development HGB: coverage >= target-0.03 at both levels then smallest mean width; otherwise smallest mean absolute coverage deviation, width tie break. Never inspect retrospective results for selection.",
+    "methods": [
+      "v1_fixed",
+      "fixed_pooled",
+      "rolling_pooled"
+    ],
+    "scenario_count": 12,
+    "scenario_strength": 1.0,
+    "scenario_history_days": 60,
+    "peak_caps_kw": [
+      350,
+      500,
+      700
+    ],
+    "shared_capacity_kw": 80,
+    "tasks": [
+      {
+        "name": "Assumed batch A",
+        "energy_kwh": 120,
+        "max_power_kw": 40,
+        "start_slot": 32,
+        "end_slot": 96
+      },
+      {
+        "name": "Assumed batch B",
+        "energy_kwh": 80,
+        "max_power_kw": 40,
+        "start_slot": 40,
+        "end_slot": 96
+      }
+    ],
+    "tariff": {
+      "offpeak_eur_kwh": 0.08,
+      "peak_eur_kwh": 0.22,
+      "peak_start_hour": 8,
+      "peak_end_hour": 20
+    },
+    "evaluation_status": "Previously inspected original test; all new October-December comparisons retrospective. No new independent validation.",
+    "diagnostic_parameter_selection": {
+      "training_start": "2018-01-08",
+      "training_end": "2018-03-31",
+      "validation_start": "2018-04-01",
+      "validation_end": "2018-06-30",
+      "refit_end": "2018-06-30"
+    }
+  },
+  "selected_method": "v1_fixed",
+  "point_forecast": "unchanged V1 refitted January-August models; diagnostic models tuned January-March/April-June then refitted January-June; all parameter selection precedes July origins",
+  "feature_set": [
+    "previous_day",
+    "previous_week",
+    "last",
+    "day_mean",
+    "day_std",
+    "day_max",
+    "week_mean",
+    "week_std",
+    "hour_sin",
+    "hour_cos",
+    "weekday_sin",
+    "weekday_cos",
+    "weekend",
+    "horizon"
+  ],
+  "diagnostic_parameters": {
+    "ridge": {
+      "alpha": 100.0
+    },
+    "hist_gradient_boosting": {
+      "max_leaf_nodes": 15,
+      "l2_regularization": 10.0
+    }
+  },
+  "source": {
+    "source_url": "https://archive.ics.uci.edu/static/public/851/steel+industry+energy+consumption.zip",
+    "dataset_url": "https://archive.ics.uci.edu/dataset/851/steel+industry+energy+consumption",
+    "doi": "10.24432/C52G8C",
+    "license": "CC BY 4.0",
+    "retrieved_utc": "2026-10-13T08:33:05.959935+00:00",
+    "files": [
+      {
+        "file": "data/raw/Steel_industry_data.csv",
+        "bytes": 2731389,
+        "sha256": "9b1cee6f9cb9cd9df2b95814ca90a9a2ff15b7f5f1fba0fae3c643e82072eacc"
+      },
+      {
+        "file": "data/raw/steel_energy.zip",
+        "bytes": 481973,
+        "sha256": "d82d28b33780ff1582507fcf08ae764ff648af459d58234370c551e62aadeaef"
+      }
+    ]
+  },
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scipy": "1.15.3",
+    "scikit-learn": "1.6.1",
+    "streamlit": "1.50.0"
+  },
+  "solver": "scipy.optimize.linprog(method=highs), no relaxation",
+  "runtime_seconds": 7.3406202500045765,
+  "outputs": [
+    "uncertainty_metrics.json",
+    "decision_backtest.parquet",
+    "decision_summary.json",
+    "case_study.json",
+    "sensitivity.json"
+  ],
+  "scenario_objective": "Flexible cost minimization; deterministic prices make expected/worst background costs decision-independent; scenario means unweighted descriptive summaries, not probabilities."
+}
