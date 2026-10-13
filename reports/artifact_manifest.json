@@ -1,0 +1,17 @@
+{
+  "sha256": {
+    "artifacts/explanations.json": "b40a0d0f3dabb8a2b153d13b1d113a95615f6767e121fd292bc0aa26d833f7c5",
+    "artifacts/intervals_daily_naive.json": "7d54c70b3133c81d3953a0233b4888f87d5a2f8de466fdbca0c127a1b4462d7e",
+    "artifacts/intervals_hist_gradient_boosting.json": "ceb12355194e59251b7fc47451fd18f8cc7b79c46ae6df26288d34f7b225c473",
+    "artifacts/intervals_last_naive.json": "a570865bfdf831e74a308000611ef80ca294af5ba0a3a35b7e9bce195d6a3178",
+    "artifacts/intervals_ridge.json": "c9fa9fd6a6957ba72c4073e7fef30b3ae390a9a628921175f9a9d195cba4a72c",
+    "artifacts/intervals_weekly_naive.json": "8316792e87ebf4ed8f03cdcf9f7514d65a6b86e66d9523d38295b849b37a5bfd",
+    "artifacts/metrics.json": "ae1a1c8692610712172179e24aef17d309b916a72fe6462f262e67e49eb7cc3f",
+    "artifacts/model.joblib": "3244f52e6e79435ccf4b82d247f27a1c6047f4fa3798e14309d3724cca34d3b8",
+    "artifacts/repository.json": "03d3edad3bf253316366ef581599eca24316b88ebbe8d865b1977631b32134f1",
+    "artifacts/scenarios.json": "74fa017464f283df654bad2c73d6b9e71009d05ca45b6bdd90b9ca43cff9c728",
+    "data/demo/forecasts.parquet": "a3e1447c1b3fe3152357beca1903488fa9a7d88a11efce03a38d9f306f522945",
+    "data/demo/history.parquet": "2f4b2315a98d182afb25b2dce02c406e4490dff14d5dc0b4673c34274460deba"
+  },
+  "note": "Integrity checks for locally generated trusted model and portable demo artifacts; attribution in README and data card."
+}
